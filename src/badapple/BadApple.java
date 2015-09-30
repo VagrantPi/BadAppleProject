@@ -19,11 +19,12 @@ public class BadApple {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
-          int Height,Width;
-            try {
-            BufferedImage image = ImageIO.read(new File("D://test2.jpg"));
+public static void main(String[] args) throws InterruptedException {
+    // TODO code application logic here
+    for(int i=1;i<287;i++) {   
+        int Height,Width;
+        try {
+            BufferedImage image = ImageIO.read(new File("C:\\Users\\Takenaka\\Desktop\\test123\\BadApple ("+i+").jpg"));
             final int width = image.getWidth();
             final int height = image.getHeight();
             final int[][] pixel = new int[height][width];
@@ -32,22 +33,52 @@ public class BadApple {
                 for (int x = 0; x < width; x++) {
                     pixel[y][x] = image.getRGB(x, y);
                  }
-            }
+            }  
             //System.out.println(pixel);
-            for (int y = 0; y < height; y+=50) {
-                for (int x = 0; x < width; x+=50) {
+            if(i!=1)
+              System.out.println(" ");
+            for (int y = 0; y < height; y+=10) {
+                for (int x = 0; x < width; x+=8) {
+                    if(pixel[y][x]<-10)
+                      System.out.print(" @");
+                    else
+                      System.out.print("  ");
+                }
+                System.out.println(" ");
+             }
+            
+            Thread.currentThread().sleep(60);//毫秒
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+}
+    /*int i = 265;
+     int Height,Width;
+        try {
+            BufferedImage image = ImageIO.read(new File("C:\\Users\\Takenaka\\Desktop\\test123\\BadApple ("+i+").jpg"));
+            final int width = image.getWidth();
+            final int height = image.getHeight();
+            final int[][] pixel = new int[height][width];
+ 
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
+                    pixel[y][x] = image.getRGB(x, y);
+                 }
+            }  
+            //System.out.println(pixel);
+            for (int y = 0; y < height; y+=15) {
+                for (int x = 0; x < width; x+=12) {
                     if(pixel[y][x]<-10)
                       System.out.print("  ");
                     else
                       System.out.print(" @");
-                 }
-                
+                }
                 System.out.println(" ");
-            }
+             }
+            Thread.currentThread().sleep(25);//毫秒
         } catch (IOException e) {
             e.printStackTrace();
-        }
- 
-    
+        }*/
+
 }
 }
