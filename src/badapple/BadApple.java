@@ -14,14 +14,29 @@ import java.awt.*; // for FileDialog
  *
  * @author Takenaka
  */
-public class BadApple {
+public class BadApple extends Canvas{
 
     /**
      * @param args the command line arguments
      */
 public static void main(String[] args) throws InterruptedException {
     // TODO code application logic here
-    for(int i=1;i<287;i++) {   
+    //for(int i=1;i<1368;i++) {   
+    Frame frame = new Frame("AWTDemo");
+    frame.addWindowListener(new AdapterDemo());
+    //frame.setSize(1500,1000);
+    frame.setSize(900,800);
+    
+    BadApple canvas = new BadApple();
+    frame.add(canvas, BorderLayout.CENTER);
+    
+    frame.setVisible(true);
+    
+}
+
+public void paint(Graphics g) { 
+        
+        int i = 360;
         int Height,Width;
         try {
             BufferedImage image = ImageIO.read(new File("C:\\Users\\Takenaka\\Desktop\\test123\\BadApple ("+i+").jpg"));
@@ -34,8 +49,37 @@ public static void main(String[] args) throws InterruptedException {
                     pixel[y][x] = image.getRGB(x, y);
                  }
             }  
-            //System.out.println(pixel);
-            if(i!=1)
+
+            char [] a = new char[width];
+            char [] b = new char[height];
+            int anum;
+            
+            
+            for (int y = 0; y < height; y+=10) {
+                int nownum = 0;
+                for (int x = 0; x < width; x+=8) {
+                    if(pixel[y][x]<-10){
+                      //System.out.print(" @");
+                        a[nownum]='=';
+                        nownum+=1;
+                    }
+                    else{
+                      //System.out.print("  ");
+                        a[nownum]='#';
+                        nownum+=1;
+                    }
+                }
+                g.drawChars(a, 0, width, 20, 20+y);
+                //break;
+                //System.out.println(" ");
+             }
+            
+
+
+
+
+//System.out.println(pixel);
+            /*if(i!=1)
               System.out.println(" ");
             for (int y = 0; y < height; y+=10) {
                 for (int x = 0; x < width; x+=8) {
@@ -45,13 +89,14 @@ public static void main(String[] args) throws InterruptedException {
                       System.out.print("  ");
                 }
                 System.out.println(" ");
-             }
+             }*/
             
-            Thread.currentThread().sleep(60);//毫秒
+            //Thread.currentThread().sleep(5);//毫秒
         } catch (IOException e) {
             e.printStackTrace();
         }
-}
+    }
+//}
     /*int i = 265;
      int Height,Width;
         try {
@@ -81,4 +126,10 @@ public static void main(String[] args) throws InterruptedException {
         }*/
 
 }
+//}
+
+class AdapterDemo extends WindowAdapter {
+    public void windowClosing(WindowEvent e) {
+        System.exit(0);
+    }
 }
