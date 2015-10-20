@@ -4,28 +4,30 @@
  * and open the template in the editor.
  */
 package badapple;
-import javax.imageio.*; // for ImageIO
-import java.io.*; // for File
-import java.awt.image.*; // for BufferedImage
-import javax.swing.*; // for JFrame
-import java.awt.event.*; //for ActionListener
-import java.awt.*; // for FileDialog
-/**
- *
- * @author Takenaka
- */
+import javax.imageio.*; 
+import java.io.*;
+import java.awt.image.*;
+import javax.swing.*;
+import java.awt.event.*; 
+import java.awt.*; 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
 public class BadApple extends Canvas{
 
     /**
      * @param args the command line arguments
      */
 public static void main(String[] args) throws InterruptedException {
+    
     // TODO code application logic here
-    //for(int i=1;i<1368;i++) {   
+    //for(int i=1;i<4372;i++) {   
     Frame frame = new Frame("AWTDemo");
     frame.addWindowListener(new AdapterDemo());
     //frame.setSize(1500,1000);
     frame.setSize(900,800);
+    
     
     BadApple canvas = new BadApple();
     frame.add(canvas, BorderLayout.CENTER);
@@ -36,8 +38,9 @@ public static void main(String[] args) throws InterruptedException {
 
 public void paint(Graphics g) { 
         
-        int i = 360;
-        int Height,Width;
+    for(int i=0;i<4372;i++) 
+    {   
+       int Height,Width;
         try {
             BufferedImage image = ImageIO.read(new File("C:\\Users\\Takenaka\\Desktop\\test123\\BadApple ("+i+").jpg"));
             final int width = image.getWidth();
@@ -51,51 +54,55 @@ public void paint(Graphics g) {
             }  
 
             char [] a = new char[width];
-            char [] b = new char[height];
-            int anum;
+            char [] b = new char[width];
             
             
+            int pictureOK = 0;
             for (int y = 0; y < height; y+=10) {
                 int nownum = 0;
                 for (int x = 0; x < width; x+=8) {
                     if(pixel[y][x]<-10){
                       //System.out.print(" @");
                         a[nownum]='=';
+                        b[nownum]=' ';
                         nownum+=1;
+                        pictureOK+=1;
                     }
                     else{
                       //System.out.print("  ");
                         a[nownum]='#';
+                        b[nownum]=' ';
                         nownum+=1;
+                        pictureOK+=1;
                     }
                 }
+                
                 g.drawChars(a, 0, width, 20, 20+y);
-                //break;
-                //System.out.println(" ");
+                
+                System.out.println(pictureOK);
+                //g.fillRect(0, 0, width, height);
+               // Thread.currentThread().sleep(2000);
+               // if(i%2==0 && pictureOK>=8000)
+               //   g.clearRect(0, 0, width, height*2);
+                if(i%2==0)
+                    g.dispose();
              }
-            
-
-
-
-
-//System.out.println(pixel);
-            /*if(i!=1)
-              System.out.println(" ");
-            for (int y = 0; y < height; y+=10) {
-                for (int x = 0; x < width; x+=8) {
-                    if(pixel[y][x]<-10)
-                      System.out.print(" @");
-                    else
-                      System.out.print("  ");
-                }
-                System.out.println(" ");
-             }*/
-            
-            //Thread.currentThread().sleep(5);//毫秒
+        
         } catch (IOException e) {
             e.printStackTrace();
+        //} catch (InterruptedException ex) {
+            //Logger.getLogger(BadApple.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        this.invalidate();
+        this.validate();
+        this.revalidate();
+        //this.revalidate();
+        //this.update(g);
     }
+    
+}
+
 //}
     /*int i = 265;
      int Height,Width;
@@ -133,3 +140,4 @@ class AdapterDemo extends WindowAdapter {
         System.exit(0);
     }
 }
+
